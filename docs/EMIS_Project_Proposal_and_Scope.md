@@ -17,7 +17,7 @@ EMIS is **not** intended to diagnose illness, replace clinical records, verify m
 
 In an emergency, a person may be unable to explain important medical details. Information such as severe allergies or an emergency contact may be stored in different places, inaccessible to a nearby helper, or unavailable without unlocking the person's device. At the same time, exposing an entire medical history through a publicly scannable card would create privacy risks.
 
-The engineering problem is to design a usable, reliable, and privacy-aware mechanism for sharing **only selected emergency information** through a QR/NFC entry point, while keeping sensitive profile management under the owner's control. This problem statement is an initial hypothesis; its relevance and user requirements still need validation through interviews or other documented evidence.
+The engineering problem is to design a usable, reliable, and privacy-aware mechanism for sharing **only selected emergency information** through a QR/NFC entry point, while keeping sensitive profile management under the owner's control. Section 2 of the consolidated report now presents a 31-submission survey summary. Consent, eligibility, collection dates and analysis denominators require verification before those results support validated requirements.
 
 ## 3. Target Users and Stakeholders
 
@@ -143,7 +143,7 @@ The later-stage prototype will be evaluated using test scenarios for profile acc
 
 ## 14. References and Project Links
 
-- **GitHub:** https://github.com/BekbolatSE2403/Diploma_work
+- **GitHub:** https://github.com/BekbolatSE2403/EMIS
 - **YouTrack:** https://emergency-medical-system.youtrack.cloud/projects/EMIS/agiles/204-1/current
 - **Figma:** https://www.figma.com/design/SDg61cKTrjUKzSXLRnfvmr/Untitled?node-id=2-1837&t=DK0AGKwpniboWWAa-1
 

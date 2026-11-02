@@ -2,6 +2,8 @@
 
 **Project:** Design and Development of a Privacy-Aware QR/NFC-Based Emergency Medical Information System  
 
+This is the canonical requirements specification. Report Section 6 uses these FR IDs; [requirements.md](requirements.md) preserves the legacy mapping. Implementation and review assignments are recorded in [traceability.md](traceability.md).
+
 ## 1. Purpose and scope
 
 This document defines the proposed functional and non-functional requirements for EMIS and gives measurable acceptance criteria. EMIS aims to let a profile owner maintain self-reported emergency information and share only a deliberately limited emergency view through a QR/NFC-linked identifier. It is **not** a medical record, diagnostic tool, identity-verification service, or substitute for emergency services.
@@ -103,6 +105,8 @@ The priority describes the **target prototype**, not what is already implemented
 **Important:** 'Done' in YouTrack is not evidence that all acceptance tests above pass. Functional verification must be recorded separately. This table reflects the project status reported on 23 October 2026 and should be updated when tasks change.
 
 ## 10. Open decisions requiring review
+
+These decisions remain open. Documentation alignment does not approve an authentication design, finalize retention rules, or implement security controls. Record reviewed decisions separately before backend integration.
 
 - Exact public/private field list and visibility defaults.
 - Owner authentication method and account recovery.

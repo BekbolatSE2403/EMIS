@@ -1,42 +1,71 @@
-
 # Emergency Medical Information System
 
-## Project Title:  Design and Development of a Privacy-Aware QR/NFC-Based Emergency Medical Information System
+Design and Development of a Privacy-Aware QR/NFC-Based Emergency Medical Information System (EMIS).
 
-## Project Description:  This diploma project aims to develop a web-based system that provides access to user-authorized emergency medical information through QR codes and NFC-enabled identification cards.
+EMIS is a university diploma project exploring access to a deliberately limited, owner-approved emergency summary through a QR/NFC URL. Medical details are self-reported and cannot replace professional assessment.
 
-The proposed system will allow users to manage their medical profiles, emergency contacts, allergies, and privacy settings.
+## Current implementation
 
-## Main Features (Planned):
-- User registration and authentication
-- Emergency medical profile management
-- QR/NFC-based profile access
-- Emergency contact information
-- Privacy-aware access control
-- First-aid information resources
+Reviewed 2 November 2026. A Next.js emergency-profile prototype and design/planning documents exist. The page uses fixed demonstration data. A QR/NFC badge is not evidence of scanning functionality.
 
-## Project Supervisor:
-Yespenbetova Dana Altynbekqyzy
+| Component | Status |
+|---|---|
+| Next.js emergency profile | Static UI implemented; check results separately |
+| Figma concepts | Prepared; consistency and source review pending |
+| Spring Boot API and PostgreSQL | Planned; no runnable backend in this repository |
+| Owner authentication, editing and visibility controls | Planned |
+| QR generation, NFC provisioning and link revocation | Planned |
+| Integrated security, device and usability evaluation | Not yet conducted |
 
-## Team Members:
-- Bekbolat Yergaliuly — Frontend Development
-- Olzhas Omerzak Zhunisbekuly — Backend Development
-- Shugyla Akhit Zhasulankyzy — UI/UX Design and QA
+## Technology choices
 
-## Technology Stack(might be changed during work):
-- Frontend: Next.js, React, TypeScript
-- Backend: Node.js, Express
-- Database: PostgreSQL
-- Design: Figma
-- Version Control: GitHub
+- Frontend: Next.js, React, TypeScript and Tailwind CSS, implemented prototype.
+- Backend: Java, Spring Boot and Maven, proposed selection.
+- Database: PostgreSQL, proposed selection.
+- Design: Figma. Version control: GitHub. Tracking: YouTrack.
 
-## Current Status:
-Initial planning and project setup.
+## Run the frontend
 
-## Development Roadmap:
-1. Requirements analysis and system architecture
-2. UI/UX design
-3. Frontend and backend development
-4. Database and QR/NFC integration
-5. Security implementation and testing
-6. Deployment and documentation
+```sh
+cd frontend
+npm ci
+npm run dev
+```
+
+Open http://localhost:3000. For local checks, run `npm run lint` and `npm run build`. See [frontend notes](frontend/README.md) for limitations. No backend or database setup is required for the static demo. Check results must include the tested revision and environment; a successful build does not verify the planned system.
+
+## Documentation
+
+- [Canonical requirements](docs/EMIS_Requirements_Specification.md)
+- [Legacy requirement ID migration](docs/requirements.md)
+- [Project proposal and scope](docs/EMIS_Project_Proposal_and_Scope.md)
+- [Technology comparison](docs/EMIS_Technology_Comparison.md)
+- [Consolidated report](docs/EMIS_main_report.docx)
+- [Backend plan](backend/Olzhas_Backend_README.md)
+- [Design handoff and unresolved checks](designs/EMIS_UI_UX_Design_Guidelines.md)
+- [Survey verification status](docs/research/survey-methodology.md)
+- [Implementation status and review assignments](docs/traceability.md)
+
+The report incorporates the team's 31-submission survey summary. Consent, eligibility, collection dates and final analysis denominators remain pending verification. Historical mockup screenshots and tracker statuses are not current test evidence. Keep response-level personal data and secrets outside this public repository.
+
+## Team
+
+| Contributor | Responsibility |
+|---|---|
+| Bekbolat Yergaliuly | Frontend development and coordination |
+| Olzhas Omerzak Zhunisbekuly | Backend architecture and development |
+| Shugyla Akhit Zhasulankyzy | UI/UX design and QA |
+
+Supervisor: Yespenbetova Dana Altynbekqyzy.
+
+## Project links
+
+- [GitHub repository](https://github.com/BekbolatSE2403/EMIS)
+- [YouTrack board](https://emergency-medical-system.youtrack.cloud/projects/EMIS/agiles/204-1/current)
+- [Figma source](https://www.figma.com/design/SDg61cKTrjUKzSXLRnfvmr/Untitled?node-id=2-1837)
+
+Figma and YouTrack links were recovered from supplied documents; current access and issue state require verification.
+
+## Next steps
+
+Reconcile documentation and demo data; review public-field rules and security/API decisions; initialize the backend and database; implement owner workflows and public filtering; integrate QR and revocation; collect actual test evidence. NFC is a Should requirement and first-aid resources are Could scope in the canonical specification.

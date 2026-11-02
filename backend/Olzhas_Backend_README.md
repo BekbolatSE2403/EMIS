@@ -91,8 +91,8 @@ For the first pre-defense, the backend contribution focuses on analysis and plan
 
 ## Collaboration and Tracking
 
-- **Repository:** https://github.com/BekbolatSE2403/Diploma_work
-- **Project management:** EMIS YouTrack project (add direct project URL)
+- **Repository:** https://github.com/BekbolatSE2403/EMIS
+- **Project management:** [EMIS YouTrack board](https://emergency-medical-system.youtrack.cloud/projects/EMIS/agiles/204-1/current) (live state not verified)
 - **Contributor:** Olzhas Omerzak Zhunisbekuly
 - **Supervisor:** Yespenbetova Dana Altynbekqyzy
 
