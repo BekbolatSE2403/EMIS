@@ -1,0 +1,1979 @@
+openapi: 3.1.0
+info:
+  title: EMIS target API contract
+  version: 0.2.0
+  description: >-
+    Design baseline dated 2 November 2026. Not implemented. Report Sections 6 and 7, decisions.md
+    and api-contract.md define semantics. All examples/data must be fictional.
+servers:
+  - url: /api
+    description: Same-origin target reverse proxy; not a deployed service.
+paths:
+  /public/profiles/{publicId}:
+    get:
+      operationId: get_public_profiles_publicId
+      summary: Read current owner-approved public summary.
+      description: Target design only; not implemented.
+      security: []
+      responses:
+        '200':
+          description: Read current owner-approved public summary.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicProfile'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - name: publicId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9_-]{43}$
+          description: Raw 43-character random link value; never a user/profile database ID.
+  /auth/csrf:
+    get:
+      operationId: get_auth_csrf
+      summary: Establish an anonymous session and obtain its CSRF token.
+      description: Target design only; not implemented.
+      security: []
+      responses:
+        '200':
+          description: Establish an anonymous session and obtain its CSRF token.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Csrf'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/register:
+    post:
+      operationId: post_auth_register
+      summary: Begin registration with a generic accepted response.
+      description: Target design only; not implemented.
+      security:
+        - csrfHeader: []
+      responses:
+        '202':
+          description: Begin registration with a generic accepted response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+  /auth/verify:
+    post:
+      operationId: post_auth_verify
+      summary: Consume an account verification token.
+      description: Target design only; not implemented.
+      security:
+        - csrfHeader: []
+      responses:
+        '204':
+          description: Consume an account verification token.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verification'
+  /auth/login:
+    post:
+      operationId: post_auth_login
+      summary: Authenticate and rotate a server-side session.
+      description: Target design only; not implemented.
+      security:
+        - csrfHeader: []
+      responses:
+        '204':
+          description: Authenticate and rotate a server-side session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+  /auth/logout:
+    post:
+      operationId: post_auth_logout
+      summary: Invalidate the current session and clear its cookie.
+      description: Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '204':
+          description: Invalidate the current session and clear its cookie.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/recovery/request:
+    post:
+      operationId: post_auth_recovery_request
+      summary: Begin recovery without disclosing whether an account exists.
+      description: Target design only; not implemented.
+      security:
+        - csrfHeader: []
+      responses:
+        '202':
+          description: Begin recovery without disclosing whether an account exists.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequest'
+  /auth/recovery/complete:
+    post:
+      operationId: post_auth_recovery_complete
+      summary: Reset password and invalidate sessions and public identifiers.
+      description: Target design only; not implemented.
+      security:
+        - csrfHeader: []
+      responses:
+        '204':
+          description: Reset password and invalidate sessions and public identifiers.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecoveryComplete'
+  /me/profile:
+    get:
+      operationId: get_me_profile
+      summary: Read only the session owner editable profile.
+      description: Target design only; not implemented.
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Read only the session owner editable profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnerProfile'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: put_me_profile
+      summary: Replace owner profile contents using optimistic version control.
+      description: Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '200':
+          description: Replace owner profile contents using optimistic version control.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnerProfile'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileWrite'
+    delete:
+      operationId: delete_me_profile
+      summary: 'Close account: disable access immediately and queue primary purge.'
+      description: Recent authentication within 5 minutes required. Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '202':
+          description: 'Close account: disable access immediately and queue primary purge.'
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /me/profile/visibility:
+    patch:
+      operationId: patch_me_profile_visibility
+      summary: Apply field selections, publication consent or withdrawal.
+      description: Recent authentication within 5 minutes required. Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '200':
+          description: Apply field selections, publication consent or withdrawal.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnerProfile'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisibilityWrite'
+  /me/identifiers:
+    get:
+      operationId: get_me_identifiers
+      summary: List owner identifier statuses without raw URLs/tokens.
+      description: Target design only; not implemented.
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: List owner identifier statuses without raw URLs/tokens.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierStatus'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: post_me_identifiers
+      summary: Issue a raw public URL once after consent and nonempty selection.
+      description: Recent authentication within 5 minutes required. Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '201':
+          description: Issue a raw public URL once after consent and nonempty selection.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedIdentifier'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /me/identifiers/{identifierId}/rotate:
+    post:
+      operationId: post_me_identifiers_identifierId_rotate
+      summary: Atomically revoke an owned identifier and issue its replacement once.
+      description: Recent authentication within 5 minutes required. Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '201':
+          description: Atomically revoke an owned identifier and issue its replacement once.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedIdentifier'
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - name: identifierId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Internal management ID scoped to the session owner; not the raw public token.
+  /me/identifiers/{identifierId}:
+    delete:
+      operationId: delete_me_identifiers_identifierId
+      summary: Revoke an owned identifier.
+      description: Recent authentication within 5 minutes required. Target design only; not implemented.
+      security:
+        - sessionCookie: []
+          csrfHeader: []
+      responses:
+        '204':
+          description: Revoke an owned identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+        '401':
+          description: No owner session.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Invalid CSRF or recent authentication required.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource unavailable; public failures never reveal a private profile.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: PROFILE_UNAVAILABLE
+                message: Emergency information unavailable.
+        '409':
+          description: Stale version or existing active identifier.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid input, publication selection or consent.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Generic throttling response.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable without medical fallback.
+          headers:
+            Cache-Control:
+              description: All health/auth/identifier responses must not be stored.
+              schema:
+                type: string
+                const: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - name: identifierId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Internal management ID scoped to the session owner; not the raw public token.
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: __Host-EMISSESSION
+      description: Server-managed session; Secure, HttpOnly, SameSite=Lax, Path=/, no Domain.
+    csrfHeader:
+      type: apiKey
+      in: header
+      name: X-CSRF-TOKEN
+      description: Synchronizer token obtained from /auth/csrf; required for every unsafe request.
+  schemas:
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 64
+        message:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+        - code
+        - message
+    Accepted:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+            - accepted
+      required:
+        - status
+    Csrf:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+          minLength: 1
+          maxLength: 512
+        headerName:
+          type: string
+          const: X-CSRF-TOKEN
+      required:
+        - token
+        - headerName
+    Credentials:
+      type: object
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          minLength: 15
+          maxLength: 128
+      required:
+        - email
+        - password
+    EmailRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+      required:
+        - email
+    Verification:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+          pattern: ^[A-Za-z0-9_-]{43}$
+      required:
+        - token
+    RecoveryComplete:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+          pattern: ^[A-Za-z0-9_-]{43}$
+        newPassword:
+          type: string
+          minLength: 15
+          maxLength: 128
+      required:
+        - token
+        - newPassword
+    MedicalEntryWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+        - label
+    MedicalEntry:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+          minLength: 1
+          maxLength: 200
+        isPublic:
+          type: boolean
+      required:
+        - id
+        - label
+        - isPublic
+    ContactWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        relationship:
+          type:
+            - string
+            - 'null'
+          maxLength: 80
+        phone:
+          type: string
+          pattern: ^\+[1-9][0-9]{6,14}$
+        sharingPermissionConfirmed:
+          type: boolean
+      required:
+        - name
+        - relationship
+        - phone
+        - sharingPermissionConfirmed
+    Contact:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        relationship:
+          type:
+            - string
+            - 'null'
+          maxLength: 80
+        phone:
+          type: string
+          pattern: ^\+[1-9][0-9]{6,14}$
+        isPublic:
+          type: boolean
+        sharingPermissionConfirmed:
+          type: boolean
+      required:
+        - id
+        - name
+        - relationship
+        - phone
+        - isPublic
+        - sharingPermissionConfirmed
+    PublicContact:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        relationship:
+          type:
+            - string
+            - 'null'
+          maxLength: 80
+        phone:
+          type: string
+          pattern: ^\+[1-9][0-9]{6,14}$
+      required:
+        - name
+        - phone
+    PublicProfile:
+      type: object
+      additionalProperties: false
+      properties:
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        bloodType:
+          type: string
+          enum:
+            - A+
+            - A-
+            - B+
+            - B-
+            - AB+
+            - AB-
+            - O+
+            - O-
+        allergies:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+          minItems: 1
+        conditions:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+          minItems: 1
+        medications:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+          minItems: 1
+        emergencyContacts:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/PublicContact'
+          minItems: 1
+        lastUpdatedAt:
+          type: string
+          format: date-time
+        informationStatus:
+          type: string
+          const: self-reported-unverified
+      required:
+        - lastUpdatedAt
+        - informationStatus
+    ProfileWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        version:
+          type: integer
+          minimum: 0
+        displayName:
+          type:
+            - string
+            - 'null'
+          maxLength: 100
+        bloodType:
+          type:
+            - string
+            - 'null'
+          enum:
+            - A+
+            - A-
+            - B+
+            - B-
+            - AB+
+            - AB-
+            - O+
+            - O-
+            - null
+        allergies:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/MedicalEntryWrite'
+        conditions:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/MedicalEntryWrite'
+        medications:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/MedicalEntryWrite'
+        emergencyContacts:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ContactWrite'
+      required:
+        - version
+        - displayName
+        - bloodType
+        - allergies
+        - conditions
+        - medications
+        - emergencyContacts
+    OwnerProfile:
+      type: object
+      additionalProperties: false
+      properties:
+        version:
+          type: integer
+          minimum: 0
+        displayName:
+          type:
+            - string
+            - 'null'
+          maxLength: 100
+        bloodType:
+          type:
+            - string
+            - 'null'
+          enum:
+            - A+
+            - A-
+            - B+
+            - B-
+            - AB+
+            - AB-
+            - O+
+            - O-
+            - null
+        displayNamePublic:
+          type: boolean
+        bloodTypePublic:
+          type: boolean
+        publicationEnabled:
+          type: boolean
+        consentVersion:
+          type:
+            - string
+            - 'null'
+          maxLength: 100
+        consentAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+        lastUpdatedAt:
+          type: string
+          format: date-time
+        allergies:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/MedicalEntry'
+        conditions:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/MedicalEntry'
+        medications:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/MedicalEntry'
+        emergencyContacts:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/Contact'
+      required:
+        - version
+        - publicationEnabled
+        - lastUpdatedAt
+        - allergies
+        - conditions
+        - medications
+        - emergencyContacts
+    VisibilityWrite:
+      type: object
+      additionalProperties: false
+      properties:
+        version:
+          type: integer
+          minimum: 0
+        publicationEnabled:
+          type: boolean
+        displayNamePublic:
+          type: boolean
+        bloodTypePublic:
+          type: boolean
+        publicAllergyIds:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            format: uuid
+        publicConditionIds:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            format: uuid
+        publicMedicationIds:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            format: uuid
+        publicContactIds:
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            format: uuid
+        consentNoticeVersion:
+          type:
+            - string
+            - 'null'
+          maxLength: 100
+        acceptPublication:
+          type: boolean
+      required:
+        - version
+        - publicationEnabled
+        - displayNamePublic
+        - bloodTypePublic
+        - publicAllergyIds
+        - publicConditionIds
+        - publicMedicationIds
+        - publicContactIds
+        - consentNoticeVersion
+        - acceptPublication
+    IdentifierStatus:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - active
+            - revoked
+        createdAt:
+          type: string
+          format: date-time
+        revokedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+      required:
+        - id
+        - status
+        - createdAt
+        - revokedAt
+    IssuedIdentifier:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        publicUrl:
+          type: string
+          format: uri
+          pattern: ^https://
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - publicUrl
+        - createdAt

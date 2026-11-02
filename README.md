@@ -36,6 +36,16 @@ Open http://localhost:3000. For local checks, run `npm run lint` and `npm run bu
 
 ## Documentation
 
+Start with the [documentation index](docs/README.md). Initial planning feedback is received; follow-up review of the revised design is pending. See the [supervisor feedback record](docs/supervisor-feedback.md) and [comment-to-revision matrix](docs/feedback-response-matrix.md).
+
+- [Architecture and user flows](docs/architecture.md)
+- [Architecture decisions](docs/decisions.md)
+- [Privacy and security](docs/privacy-and-security.md)
+- [Threat model](docs/threat-model.md)
+- [Database model](docs/data-model.md)
+- [API contract](docs/api-contract.md)
+- [Verification plan](docs/verification.md)
+
 - [Canonical requirements](docs/EMIS_Requirements_Specification.md)
 - [Legacy requirement ID migration](docs/requirements.md)
 - [Project proposal and scope](docs/EMIS_Project_Proposal_and_Scope.md)
@@ -68,4 +78,4 @@ Figma and YouTrack links were recovered from supplied documents; current access 
 
 ## Next steps
 
-Reconcile documentation and demo data; review public-field rules and security/API decisions; initialize the backend and database; implement owner workflows and public filtering; integrate QR and revocation; collect actual test evidence. NFC is a Should requirement and first-aid resources are Could scope in the canonical specification.
+Review the documented requirements, public-field rules, privacy/threat model, schema and security/API baseline with the team and supervisor before implementation. Then initialize the backend/database, implement owner workflows and public filtering, integrate QR/revocation, and collect actual test evidence. NFC is a Should requirement and first-aid resources are Could scope in the canonical specification.

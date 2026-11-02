@@ -11,7 +11,7 @@
 
 The Emergency Medical Information System (EMIS) is a proposed web-based solution that enables a person to maintain essential emergency medical information and make an intentionally limited subset accessible through a QR code or NFC-enabled identification card. The concept is intended to help an emergency responder or bystander quickly locate user-provided information such as known allergies, relevant medical conditions, and emergency contacts when the card owner may be unable to communicate.
 
-EMIS is **not** intended to diagnose illness, replace clinical records, verify medical facts, or substitute for professional emergency services. The initial interface is a prototype using demonstration data. QR/NFC access, backend persistence, identity verification, and production-grade access controls are planned work, not completed functionality.
+EMIS is **not** intended to diagnose illness, replace clinical records, verify medical facts, or substitute for professional emergency services. The initial interface is a prototype using demonstration data. QR/NFC access, backend persistence and production-grade access controls are planned work, not completed functionality.
 
 ## 2. Problem Statement
 
@@ -73,20 +73,9 @@ A card must not be treated as proof of identity or as an authoritative medical r
 - Production deployment involving real patient records without additional legal, security, and ethics review.
 - Automatic emergency calling, location tracking, or dispatch.
 
-## 7. Preliminary Requirements
+## 7. Requirements baseline
 
-| ID | Requirement | Priority | Preliminary acceptance criterion |
-|---|---|---|---|
-| FR-01 | Display a limited emergency profile | Must | A test visitor can open the demo profile and view designated emergency fields. |
-| FR-02 | Support profile management by its owner | Must (planned) | An authenticated test owner can create and update sample data. |
-| FR-03 | Separate public and private data | Must (planned) | Fields marked private are absent from the public response and interface. |
-| FR-04 | Open an emergency view through a QR/NFC link | Must (planned) | A test scan opens the intended profile route. |
-| FR-05 | Display emergency contact information | Must | The interface presents a clearly labeled emergency contact action when configured. |
-| NFR-01 | Mobile usability | Must | Core profile content is usable at common mobile viewport sizes. |
-| NFR-02 | Privacy and security | Must (planned) | Unauthorized test requests cannot access owner-only endpoints or private fields. |
-| NFR-03 | Transparency | Must | The interface identifies the information as user-provided and potentially unverified. |
-
-These are preliminary requirements. The detailed requirements specification and final acceptance criteria will be maintained separately.
+[EMIS_Requirements_Specification.md](EMIS_Requirements_Specification.md) is the single canonical FR/NFR specification. The earlier preliminary table reused FR IDs for different meanings and is superseded; [requirements.md](requirements.md) preserves the legacy mapping. Use the canonical IDs for architecture, tests and task evidence.
 
 ## 8. Proposed Technology Stack
 
@@ -94,12 +83,12 @@ These are preliminary requirements. The detailed requirements specification and 
 |---|---|---|
 | Frontend | Next.js, TypeScript, Tailwind CSS | Frontend project and emergency-profile UI have been developed. |
 | Backend | Java, Spring Boot, Maven | Proposed; architecture documentation prepared, implementation pending. |
-| Database | PostgreSQL | Candidate relational database; final selection requires comparison. |
+| Database | PostgreSQL | Selected target relational database; implementation pending. |
 | API | REST over HTTPS with JSON | Proposed interface between frontend and backend. |
 | Design | Figma | Mobile, desktop, scanning-journey, and card mockups prepared. |
 | Workflow | GitHub, YouTrack | Repository, tasks, branches, and pull requests used for tracking. |
 
-Technology choices are provisional until documented alternatives are evaluated.
+The technology comparison and ADR-01 record the selected target stack; exact backend versions and providers remain implementation decisions.
 
 ## 9. Expected Outcomes and Deliverables
 
@@ -124,7 +113,7 @@ Technology choices are provisional until documented alternatives are evaluated.
 
 ## 11. Current Status at First Pre-Defense
 
-The repository contains a frontend prototype, UI/UX design materials, and backend planning documentation. YouTrack currently shows five completed tasks and two pending implementation tasks: Spring Boot initialization (EMIS-3) and Emergency Medical Profile API development (EMIS-7). The existence of a merged documentation pull request does not mean the backend is implemented. QR/NFC integration, secure profile management, and production readiness remain future work.
+The repository contains a frontend prototype, UI/UX design materials, and backend planning documentation. The historical snapshot reported on 23 October 2026 shows five completed tasks and two pending implementation tasks: Spring Boot initialization (EMIS-3) and Emergency Medical Profile API development (EMIS-7). The existence of a merged documentation pull request does not mean the backend is implemented. QR/NFC integration, secure profile management, and production readiness remain future work.
 
 ## 12. Risks, Assumptions, and Mitigation
 
@@ -139,7 +128,7 @@ The repository contains a frontend prototype, UI/UX design materials, and backen
 
 ## 13. Planned Evaluation
 
-The later-stage prototype will be evaluated using test scenarios for profile access, field visibility, unauthorized access attempts, and QR/NFC navigation. Usability tasks will assess whether a participant can find a critical allergy warning and emergency contact promptly. Proposed metrics include task completion rate, time to locate designated fields, successful/failed access-control checks, and QR/NFC link-opening success rate. Baselines, sample sizes, conditions, and acceptance thresholds must be established before testing; no evaluation results are claimed at this stage.
+The later-stage prototype will be evaluated using test scenarios for profile access, field visibility, unauthorized access attempts, and QR/NFC navigation. Usability tasks will assess whether a participant can find a critical allergy warning and emergency contact promptly. Proposed metrics include task completion rate, time to locate designated fields, successful/failed access-control checks, and QR/NFC link-opening success rate. The target baseline, sample size, conditions and thresholds are defined in verification.md and require review before testing; no evaluation results are claimed at this stage.
 
 ## 14. References and Project Links
 
@@ -149,3 +138,7 @@ The later-stage prototype will be evaluated using test scenarios for profile acc
 
 
 ---
+
+## Documentation baseline dated 2 November 2026
+
+Initial supervisor planning feedback has been received and is preserved in supervisor-feedback.md; review of the revised baseline is pending. Architecture, privacy/threat model, schema, API and verification details are available through [docs/README.md](README.md). The consolidated report mirrors this baseline. Software implementation and measured results remain separate deliverables; QR/NFC PoC and synchronized Figma exports are still outstanding.

@@ -114,4 +114,6 @@ These are **requirements and plans**, not a certification of security compliance
 
 ## 10. Limitations and next steps
 
-This comparison is a **preliminary engineering assessment**, not a benchmark. No quantitative performance, cost, or security comparison has yet been performed. Before final selection, the team should confirm deployment constraints, device support, privacy obligations, and supervisor feedback. Next deliverables: API contract, system context/use-case/component diagrams, ER diagram, security threat model, and prototype testing plan.
+The 2 November 2026 target baseline selects the technologies and interactions in [decisions.md](decisions.md). These choices remain subject to follow-up review and implementation verification; initial planning feedback has been received. Privacy, threats, schema, API and tests now have dedicated documents in the [documentation index](README.md).
+
+This comparison is a **preliminary engineering assessment**, not a benchmark. No quantitative performance, cost, or security comparison has yet been performed. Before final selection, the team should confirm deployment constraints, device support, privacy obligations, and supervisor feedback. The API contract, diagrams, logical schema, threat model and verification plan are now documented. Follow-up review and their software/device implementation remain outstanding.

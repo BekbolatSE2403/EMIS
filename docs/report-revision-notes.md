@@ -1,14 +1,13 @@
 # Consolidated report revision notes
 
-The revised docs/EMIS_main_report.docx uses the supplied EMIS_main_report(5).docx as its source, replacing the older repository report. These notes make the Word revision reviewable alongside its binary diff.
+Baseline 2 November 2026. The supplied Desktop EMIS_main_report.docx matches the earlier EMIS_main_report(5).docx. The original Desktop file is preserved; docs/EMIS_main_report.docx is the revised repository copy.
 
-- Section 1 now connects the relevance hypothesis to the preliminary survey and its unresolved verification checks.
-- Section 2 retains the supplied survey numbers and original chart images. It explicitly records 30 consent-chart answers versus 31 submissions on other charts. Consent eligibility, dates and exclusions require original records; no counts were recalculated.
-- Section 3.1 replaces an instruction to add search records with an explicit reproducibility limitation. Bibliographic claims were not newly verified.
-- Section 7 points requirement references to the canonical detailed specification. Authentication, retention, public-field and identifier decisions remain open.
-- Section 8 labels existing Figma concepts as historical, documents their inconsistent values, and assigns source-frame synchronization separately from the frontend correction. No Figma file was edited.
-- Section 11 removes repeated passages and distinguishes the earlier draft's attributed feedback from a verified supervisor approval. A dated authentic review is still required.
-- Repository hyperlink targets and visible Figma/YouTrack labels are corrected. Live Figma/YouTrack access and current issue statuses are not asserted.
-- All 13 embedded media files from the supplied report are preserved byte-for-byte. Empty spacer paragraphs were removed, table headers repeat, rows avoid splitting, and table typography was adjusted for readable wrapping. The final 33-page rendering was visually inspected; original reference content and diagrams remain.
+- Sections 1–3 retain the preliminary 31-submission survey, original charts and documented limitations: the consent chart has 30 answers, eligibility/collection dates/exclusions need original records, and search reproducibility/bibliographic verification remain incomplete. No numbers or review dates were invented.
+- Section 6 now mirrors the canonical FR-01–FR-12 and NFR-01–NFR-13 requirements. Legacy-ID tables are replaced with a canonical reference/migration map.
+- Section 7 now defines the selected target stack, actor access, consent, public field allowlist, same-origin owner sessions/CSRF, random digest-stored QR/NFC identifiers, revoke/rotate, schema, API contract, threats, no-cache and deletion/restore targets. Editable SVG context/use-case/data/flow figures are added. Existing architecture images are retained as historical figures.
+- Section 8 preserves historical Figma screenshots and their unresolved inconsistencies; PR #21 static UI evidence is separate. No Figma source or external tracker was edited.
+- Section 9 mirrors T-01–T-14 and the proposed adult usability baseline, device/network conditions, measurable targets and required evidence. Integrated tests remain unexecuted.
+- Sections 10–11 consistently record initial planning feedback received, original review date not supplied, and follow-up review pending. The supplied teacher feedback is preserved once in Section 11, followed by SF-01–SF-07 and checkpoint response mappings. Unsupported positive/final approval statements and duplicated passages are removed.
+- Architecture and verification Word companions mirror the canonical design. Management and design companions have corrected evidence status and repository links. All 13 original main-report media files are preserved byte-for-byte.
 
-This is a documentation correction, not completion of the planned backend, research validation, design handoff or integrated evaluation. Older specialist Word documents remain historical sources; use the consolidated report, canonical Markdown specification and traceability index for current review status.
+Documentation completion does not establish operational privacy controls, backend/device PoC, clinical review, synchronized Figma frames, validated research or passing integrated evaluation. See traceability.md for proposed owners and completion gates.

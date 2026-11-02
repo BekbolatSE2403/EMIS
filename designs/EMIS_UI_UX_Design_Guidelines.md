@@ -18,7 +18,7 @@ This document defines the current UI/UX design concept for EMIS (Emergency Medic
 
 ## 2. Design deliverables
 
-Four concept screens are available: (1) mobile public emergency profile; (2) desktop public emergency profile; (3) four-step QR/NFC scanning journey; and (4) physical NFC medical ID card concept. The source Figma URL is linked above; clean exported frame assets remain pending verification. Screenshots are included as visual references below.
+Four concept screens are available: (1) mobile public emergency profile; (2) desktop public emergency profile; (3) four-step QR/NFC scanning journey; and (4) physical NFC medical ID card concept. The source Figma URL is linked above; clean exported frame assets remain pending verification. Historical screenshots are embedded in the design/report Word files; the clean image filenames listed below are pending assets, not existing exports.
 
 ## 3. Target users and scenario
 
@@ -72,3 +72,7 @@ Current: four UI/UX concept screens have been generated and shared as screenshot
 - NFC medical ID card concept: `nfc-medical-card.png`
 
 **Note:** Existing screenshots include Figma canvas/editor context and should be replaced by clean frame exports before final submission.
+
+## Current handoff requirements
+
+Use the [privacy access matrix](../docs/privacy-and-security.md) and [verification plan](../docs/verification.md) for the target flows. Initial supervisor feedback is received; the revised Figma frames and architecture require follow-up review. The UI correction in PR #21 uses Alex Morgan, B+, asthma, peanut/penicillin allergies and Jamie Morgan as a fictional contact with no callable demo number. Historical screenshots have not been edited to imply this parity. Add owner consent/preview, lost-card revoke/rotate, unavailable network and missing-data states before calling the handoff complete.
