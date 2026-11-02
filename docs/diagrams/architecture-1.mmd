@@ -1,0 +1,11 @@
+flowchart LR
+    O[Profile owner] -->|Authenticated management| E[Single HTTPS origin]
+    R[Responder or bystander] -->|QR or NFC URL without login| E
+    C[Physical card: URL only] --> R
+    E --> F[Next.js web interface]
+    E -->|/api routes| B[Spring Boot API - planned]
+    F -->|Current approved data only| B
+    B -->|Private network and least privilege| D[(PostgreSQL - planned)]
+    B --> A[Restricted audit events]
+    B --> M[Email verification and recovery - provider pending]
+    R -->|Device dialer| P[Emergency services or selected contact]

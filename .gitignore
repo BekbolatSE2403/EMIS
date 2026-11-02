@@ -1,0 +1,15 @@
+# Local secrets and credentials at any depth
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Build, dependency and local editor output
+node_modules/
+.next/
+target/
+coverage/
+*.log
+.DS_Store
+.idea/
+.vscode/

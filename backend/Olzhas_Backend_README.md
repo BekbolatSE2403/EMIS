@@ -21,7 +21,7 @@ This directory currently documents the **proposed backend**, not a completed or 
 | API format | REST / JSON | Communication with the Next.js frontend |
 | Version control | Git / GitHub | Traceable contributions and review |
 
-Technology choices and alternatives will be evaluated in the project technology comparison before final approval.
+The selected target design is recorded in [architecture decisions](../docs/decisions.md), with [API contract](../docs/api-contract.md), [schema](../docs/data-model.md), [security design](../docs/privacy-and-security.md) and [tests](../docs/verification.md). Initial supervisor planning feedback has been received; follow-up review of this baseline is pending. No backend is implemented by this documentation revision.
 
 ## Planned Architecture
 
@@ -47,7 +47,7 @@ The public view is intended to expose only emergency information approved by the
 
 ## Planned API Operations
 
-The following are preliminary design examples; endpoint paths and payloads may change after requirements review.
+The operations below are an overview of the target contract. The complete versioned paths, owner-session/CSRF rules, identifier lifecycle and errors are defined in docs/openapi.yaml and docs/api-contract.md; they are not working endpoints.
 
 | Method | Proposed endpoint | Intended purpose | Access |
 |---|---|---|---|
@@ -82,17 +82,17 @@ For the first pre-defense, the backend contribution focuses on analysis and plan
 
 ## Development Roadmap
 
-1. Confirm requirements, public/private data fields, and technology decisions.
-2. Initialize a Spring Boot application with Maven and environment-based configuration.
-3. Design the database schema and implement domain models.
-4. Implement and test emergency-profile endpoints using synthetic data.
-5. Add owner authentication, authorization, and privacy controls.
-6. Integrate with the Next.js frontend; test access rules and failure cases.
+1. Review the selected requirements, schema, privacy and API baseline.
+2. Initialize Spring Boot/Maven, migrations and private-default entities.
+3. Implement owner sessions, CSRF, ownership and validated profile management.
+4. Add consent-aware public projection and transactional identifier lifecycle.
+5. Integrate Next.js, QR/NFC provisioning and failure states.
+6. Execute the documented negative access, leakage, device and usability checks.
 
 ## Collaboration and Tracking
 
-- **Repository:** https://github.com/BekbolatSE2403/Diploma_work
-- **Project management:** EMIS YouTrack project (add direct project URL)
+- **Repository:** https://github.com/BekbolatSE2403/EMIS
+- **Project management:** [EMIS YouTrack board](https://emergency-medical-system.youtrack.cloud/projects/EMIS/agiles/204-1/current) (live state not verified)
 - **Contributor:** Olzhas Omerzak Zhunisbekuly
 - **Supervisor:** Yespenbetova Dana Altynbekqyzy
 

@@ -1,99 +1,33 @@
+# Requirements index and legacy ID migration
 
-# Software Requirements Specification
+[EMIS_Requirements_Specification.md](EMIS_Requirements_Specification.md) is the canonical specification. Report Section 6 uses its functional requirement IDs. This file previously defined conflicting IDs and now provides migration guidance only. References to an old ID must include the old requirement's meaning before conversion.
 
-## Project Title
-Design and Development of a Privacy-Aware QR/NFC-Based Emergency Medical Information System
+## Legacy functional IDs
 
-## 1. Project Overview
-The project aims to develop a privacy-aware web-based platform that enables rapid access to user-authorized emergency medical information through QR codes and NFC identification cards.
+| Previous ID and meaning in this file | Canonical mapping and qualification |
+|---|---|
+| FR-01 registration/login | FR-04 owner workflow; account registration and recovery details remain to be specified |
+| FR-02 profile creation/update | FR-04; FR-10 update/removal lifecycle |
+| FR-03 medical information management | FR-02 display; FR-04 authenticated management; FR-11 validation |
+| FR-04 emergency contact management | FR-04 management; FR-08 contact action |
+| FR-05 unique QR/NFC identifier | FR-06 QR; FR-07 NFC; FR-09 revoked/unavailable links; identifier generation design remains open |
+| FR-06 QR/NFC opening | FR-06 QR and FR-07 NFC |
+| FR-07 public visibility settings | FR-05; NFR-02 private defaults |
+| FR-08 private-data restriction | NFR-03 authorization; FR-05 public filtering |
+| FR-09 emergency calling | FR-08 contact action; retain existing emergency-services action and test it separately |
+| FR-10 first-aid references | FR-12, Could scope |
+| FR-11 deactivate/replace identifiers | FR-09; replacement lifecycle design remains open |
 
-## 2. Problem Statement
-During emergencies, individuals may be unconscious or unable to communicate essential medical information. This can make it difficult for responders to identify known allergies, relevant medical conditions, and emergency contacts.
+## Legacy non-functional IDs
 
-The proposed system aims to improve access to this information while protecting sensitive personal data.
+| Previous ID and meaning in this file | Canonical mapping |
+|---|---|
+| NFR-01 mobile support | NFR-01 responsive/accessibility |
+| NFR-02 HTTPS | NFR-04 secure transport and secrets |
+| NFR-03 private authorization | NFR-03 authorization |
+| NFR-04 understandable/accessibility | NFR-01 |
+| NFR-05 invalid/revoked identifiers | NFR-05 safe errors; FR-09 |
+| NFR-06 minimization | NFR-02; privacy/safety rules in the canonical specification |
+| NFR-07 unavailable-information errors | NFR-09 reliability and graceful failure |
 
-## 3. Project Objectives
-- Develop a responsive web application.
-- Implement user registration and authentication.
-- Enable users to create and manage emergency medical profiles.
-- Generate unique QR/NFC identifiers.
-- Provide controlled access to emergency information.
-- Implement privacy settings and access control.
-- Provide emergency contact information.
-- Integrate authoritative first-aid information resources.
-
-## 4. Functional Requirements
-
-FR-01: The system shall support user registration and login.
-
-FR-02: Users shall be able to create and update their personal profiles.
-
-FR-03: Users shall be able to manage relevant medical information, including known allergies, medications, and medical conditions.
-
-FR-04: Users shall be able to add emergency contacts.
-
-FR-05: The system shall generate unique emergency profile identifiers for QR/NFC access.
-
-FR-06: Scanning a QR code or tapping a compatible NFC card shall open the corresponding emergency profile.
-
-FR-07: Users shall be able to configure which information is publicly accessible.
-
-FR-08: The system shall restrict access to private medical information.
-
-FR-09: The emergency profile shall provide access to emergency calling functionality.
-
-FR-10: The system shall provide links to authoritative first-aid guidance.
-
-FR-11: Users shall be able to deactivate or replace their emergency identifiers.
-
-## 5. Non-Functional Requirements
-
-NFR-01: The interface shall support mobile devices.
-
-NFR-02: The system shall use HTTPS for secure communication.
-
-NFR-03: Private medical information shall require authorization.
-
-NFR-04: The interface shall be understandable and accessible during emergencies.
-
-NFR-05: The system shall handle invalid or revoked identifiers safely.
-
-NFR-06: The system shall follow data minimization principles.
-
-NFR-07: The application shall provide clear error messages when information is unavailable.
-
-## 6. Technology Stack
-
-### Frontend
-- TypeScript
-- React
-- Next.js
-- Tailwind CSS
-
-### Backend
-- Java
-- Spring Boot
-- Spring Security
-- Spring Data JPA / Hibernate
-
-### Database
-- PostgreSQL
-
-### Design and Testing
-- Figma
-- Postman
-- JUnit
-- GitHub
-- YouTrack
-
-### Hardware Integration
-- QR Codes
-- NFC Cards (NTAG213/215)
-
-Version Control: GitHub
-
-Project Management: YouTrack or equivalent
-
-## 7. Current Development Status
-The project is in the initial planning and documentation stage. The requirements listed in this document describe planned functionality and do not indicate completed implementation.
-
+Mappings are semantic, not a claim of implementation or a one-to-one renumbering. Link actual issue IDs, reviewed PRs and executed results using [traceability.md](traceability.md). Do not infer current YouTrack state from old branch names.
